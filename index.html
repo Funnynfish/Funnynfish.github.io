@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funnynfish | Twitch</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --card: #0f172a;
+      --accent: #7c3aed;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: radial-gradient(circle at top, #1e1b4b, #020617);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .twitch-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      color: white;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn.follow {
+      background: #7c3aed;
+    }
+
+    .btn.sub {
+      background: #facc15;
+      color: #020617;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
+
+    .live-badge {
+      background: #ef4444;
+      color: white;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      margin-left: 8px;
+      display: none;
+    }
+
+    .offline-text {
+      color: #94a3b8;
+      margin-top: 10px;
+    }
+
+    .pulse {
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(124, 58, 237, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎮 My Gaming Hub</h1>
+    <p>Streamer • Gamer • Content Creator</p>
+  </header>
+
+  <main class="container">
+
+    <div class="card">
+      <h2>About Me</h2>
+      <p>Welcome to my site! I stream games and chill with chat.</p>
+    </div>
+
+    <div class="card">
+      <h2>
+        🔴 Live on Twitch
+        <span id="liveBadge" class="live-badge">LIVE</span>
+      </h2>
+
+      <div id="twitch-embed"></div>
+      <p id="liveStatus" class="offline-text">Currently offline</p>
+    </div>
+
+    <div class="card">
+      <h2>Support the Stream 💜</h2>
+      <div class="twitch-buttons">
+        <a href="https://www.twitch.tv/funnynfish" target="_blank" class="btn follow">💜 Follow</a>
+        <a href="https://www.twitch.tv/subs/funnynfish" target="_blank" class="btn sub">⭐ Subscribe</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    © 2026 • Built for gaming
+  </footer>
+
+  <script>
+    const TWITCH_USERNAME = "funnynfish";
+    const GITHUB_SITE = "funnynfish.github.io";
+
+    const script = document.createElement("script");
+    script.src = "https://embed.twitch.tv/embed/v1.js";
+
+    script.onload = () => {
+      new Twitch.Embed("twitch-embed", {
+        width: "100%",
+        height: 480,
+        channel: TWITCH_USERNAME,
+        parent: ["codepen.io", GITHUB_SITE]
+      });
+
+      checkLiveStatus();
+      setInterval(checkLiveStatus, 60000); // check every 60 seconds
+    };
+
+    document.body.appendChild(script);
+
+    function checkLiveStatus() {
+      fetch(`https://decapi.me/twitch/uptime/${TWITCH_USERNAME}`)
+        .then(res => res.text())
+        .then(text => {
+          const badge = document.getElementById("liveBadge");
+          const status = document.getElementById("liveStatus");
+          const followBtn = document.querySelector(".btn.follow");
+
+          if (text.toLowerCase().includes("offline")) {
+            status.textContent = "⚫ Offline — follow to catch the next stream";
+            status.style.color = "#94a3b8";
+            badge.style.display = "none";
+            followBtn.classList.remove("pulse");
+          } else {
+            status.textContent = "🔴 LIVE right now!";
+            status.style.color = "#ef4444";
+            badge.style.display = "inline-block";
+            followBtn.classList.add("pulse");
+          }
+        })
+        .catch(() => {
+          console.log("Could not check live status");
+        });
+    }
+  </script>
+</body>
+</html>
