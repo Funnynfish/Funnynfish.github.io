@@ -70,7 +70,7 @@ footer {
 
 .btn.sub {
   background: #facc15;
-  color: white;
+  color: #e5e7eb;
 }
 
 .btn:hover {
@@ -149,15 +149,12 @@ footer {
 <p>Streamer • Gamer • Content Creator</p>
 </header>
 
-
 <main class="container">
-
 
 <div class="card">
 <h2>About Me</h2>
 <p>Welcome to my site! I stream games and chill with chat no mic sadly.</p>
 </div>
-
 
 <div class="card">
 
@@ -174,14 +171,13 @@ Currently offline
 
 </div>
 
-
 <div class="card">
 
 <h2>Support the Stream 💜</h2>
 
 <div class="twitch-buttons">
 
-<a href="https://www.twitch.tv/funnynfish" target="_blank" class="btn follow">
+<a href="https://www.twitch.tv/funnynfish" target="_blank" class="btn follow" id="followButton">
 💜 Follow
 </a>
 
@@ -195,17 +191,14 @@ Currently offline
 
 </div>
 
-</div>
-
-
-<div class="card">
+</div><div class="card">
 
 <h2>📈 Twitch Followers</h2>
 
 <div class="follower-counter">
 
 <img 
-src="https://static-cdn.jtvnw.net/jtv_user_pictures/funnynfish-profile_image-300x300.png"
+src="https://static-cdn.jtvnw.net/jtv_user_pictures/funnynfish-profile_image-70x70.png"
 class="profile-pic">
 
 <div class="follower-info">
@@ -223,7 +216,6 @@ Loading...
 </div>
 
 </div>
-
 
 </main>
 
@@ -275,8 +267,7 @@ fetch(`https://decapi.me/twitch/uptime/${TWITCH_USERNAME}`)
 
 const badge=document.getElementById("liveBadge");
 const status=document.getElementById("liveStatus");
-const followBtn=document.querySelector(".btn.follow");
-
+const followBtn=document.getElementById("followButton");
 
 if(text.toLowerCase().includes("offline")){
 
