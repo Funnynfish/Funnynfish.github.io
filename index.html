@@ -93,6 +93,12 @@
       margin-top: 10px;
     }
 
+    .follower-counter {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
     .pulse {
       animation: pulse 1.5s infinite;
     }
@@ -104,7 +110,9 @@
     }
   </style>
 </head>
+
 <body>
+
   <header>
     <h1>🎮 My Gaming Hub</h1>
     <p>Streamer • Gamer • Content Creator</p>
@@ -127,30 +135,36 @@
       <p id="liveStatus" class="offline-text">Currently offline</p>
     </div>
 
-  <div class="card">
-  <h2>Support the Stream 💜</h2>
+    <div class="card">
+      <h2>Support the Stream 💜</h2>
 
-  <div class="twitch-buttons">
-    <a href="https://www.twitch.tv/funnynfish" target="_blank" class="btn follow">💜 Follow</a>
-    <a href="https://www.twitch.tv/subs/funnynfish" target="_blank" class="btn sub">⭐ Subscribe</a>
-    <a href="emotes.html" class="btn follow">🖼️ Emote / Badge Resize</a>
-  </div>
-</div>
+      <div class="twitch-buttons">
+        <a href="https://www.twitch.tv/funnynfish" target="_blank" class="btn follow">💜 Follow</a>
+        <a href="https://www.twitch.tv/subs/funnynfish" target="_blank" class="btn sub">⭐ Subscribe</a>
+        <a href="emotes.html" class="btn follow">🖼️ Emote / Badge Resize</a>
+      </div>
+    </div>
 
-<div class="card">
-  <h2>📈 Twitch Followers</h2>
+    <div class="card">
+      <h2>📈 Twitch Followers</h2>
 
-  <iframe
-    height="80"
-    width="300"
-    frameborder="0"
-    src="https://livecounts.io/embed/twitch-live-follower-counter/funnynfish"
-    style="border:0; width:300px; height:80px;">
-  </iframe>
-</div>
+      <div class="follower-counter">
+        <iframe
+          height="80"
+          width="300"
+          frameborder="0"
+          src="https://livecounts.io/embed/twitch-live-follower-counter/funnynfish"
+          style="border:0; width:300px; height:80px;">
+        </iframe>
+      </div>
+    </div>
+
+  </main>
+
   <footer>
     © 2026 • Built for gaming
   </footer>
+
 
   <script>
     const TWITCH_USERNAME = "funnynfish";
@@ -164,14 +178,15 @@
         width: "100%",
         height: 480,
         channel: TWITCH_USERNAME,
-        parent: ["codepen.io", GITHUB_SITE]
+        parent: [GITHUB_SITE]
       });
 
       checkLiveStatus();
-      setInterval(checkLiveStatus, 60000); // check every 60 seconds
+      setInterval(checkLiveStatus, 60000);
     };
 
     document.body.appendChild(script);
+
 
     function checkLiveStatus() {
       fetch(`https://decapi.me/twitch/uptime/${TWITCH_USERNAME}`)
@@ -198,5 +213,6 @@
         });
     }
   </script>
+
 </body>
 </html>
