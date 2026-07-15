@@ -104,7 +104,8 @@ footer {
 .profile-pic {
   width: 80px;
   height: 80px;
-  border-radius: 10px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .follower-info {
@@ -153,7 +154,7 @@ footer {
 
 <div class="card">
 <h2>About Me</h2>
-<p>Welcome to my site! I stream games and chill with chat no mic sadly.</p>
+<p>Welcome to my site! I stream games and chill with chat. No mic sadly.</p>
 </div>
 
 <div class="card">
@@ -198,7 +199,7 @@ Currently offline
 <div class="follower-counter">
 
 <img 
-src="https://static-cdn.jtvnw.net/jtv_user_pictures/funnynfish-profile_image-70x70.png"
+src="profile.png"
 class="profile-pic">
 
 <div class="follower-info">
@@ -216,7 +217,6 @@ Loading...
 </div>
 
 </div>
-
 </main>
 
 
@@ -319,12 +319,9 @@ document.getElementById("followerCount").textContent="57";
 
 }
 
-
 updateFollowers();
 
 setInterval(updateFollowers,300000);
-
-
 </script>
 
 
